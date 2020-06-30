@@ -4,12 +4,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'lumiliet/vim-twig'
 Plug 'kchmck/vim-coffee-script'
 Plug 'jparise/vim-graphql'
-Plug 'ianks/vim-tsx'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 
 " ****** Other Plugins ******
 " popes stuff
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -22,6 +21,12 @@ Plug 'itchyny/lightline.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 " allows access to entire undo history in a tree format (not linear)
 Plug 'mbbill/undotree'
+" git plugins
+Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
+Plug 'airblade/vim-gitgutter'
+
+
 " undotree toggle
 nnoremap <F5> :UndotreeToggle<CR>
 " save undo info in specified location and allow it to persist
@@ -52,7 +57,7 @@ Plug 'dense-analysis/ale'
 let g:ale_linters = {
 			\	'typeScript': ['tsserver'],
 			\	'javascript': ['tsserver'],
-			\ 'php': ['php -l'],
+			\ 'php': ['langserver'],
 			\ 'coffeescript': ['coffee'],
 			\ 'scss': ['prettier'],
 			\ 'yaml': ['prettier'],
@@ -62,6 +67,7 @@ let g:ale_fixers = {
 			\ 'css': ['prettier'],
 			\ 'less': ['prettier'],
 			\	'scss': ['prettier'],
+			\ 'php': ['php_cs_fixer'],
 			\ 'coffeescript': ['coffee'],
 			\ 'json': ['eslint'],
 			\ 'javascript': ['prettier'],
@@ -89,9 +95,18 @@ inoremap <s-tab> <c-n>
 " ****** Themes ******
 Plug 'dikiaap/minimalist'
 let g:lightline = {
-		\	'colorscheme': 'wombat'
+		\	'colorscheme': 'wombat',
+		\ 'active': {
+		\ 'left': [ [ 'mode', 'paste' ],
+		\					[ 'readonly', 'filename', 'modified', 'fugitive' ] ]
+		\					},
+		\ 'component': {
+		\		'fugitive': '%{FugitiveStatusline()}'
+		\ }
 \}
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
+colorscheme minimalist
 
 " ****** Grep ******
 " cycle through results quicker
@@ -148,5 +163,13 @@ augroup every
 	au InsertEnter * set norelativenumber
 	au InsertLeave * set relativenumber
 augroup END
+
+" ****** Netrw File Explorer ******
 " open netrw file explorer with ctrl+n
 map <C-n> :e .<CR>
+" open netrw at the last opened location
+let g:netrw_keepdir=0
+
+" ****** Git ******
+" Default to not read-only in vimdiff
+set noro"

@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 " ****** Syntax Highlighters ******
+Plug 'mustache/vim-mustache-handlebars'
 Plug 'lumiliet/vim-twig'
 Plug 'kchmck/vim-coffee-script'
 Plug 'jparise/vim-graphql'

@@ -68,6 +68,7 @@ let g:ale_fixers = {
 			\ 'css': ['prettier'],
 			\ 'less': ['prettier'],
 			\	'scss': ['prettier'],
+			\ 'yaml': ['prettier'],
 			\ 'php': ['php_cs_fixer'],
 			\ 'coffeescript': ['coffee'],
 			\ 'json': ['eslint'],

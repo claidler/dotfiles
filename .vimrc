@@ -42,6 +42,15 @@ endif
 set undodir=~/.vim/undo-dir
 set undofile
 
+" ****** Auto Close Brackets/Tags ******
+" close brackets
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 
 " ****** Linting/Autocompletion ******
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

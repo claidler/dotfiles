@@ -7,6 +7,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'jparise/vim-graphql'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'jparise/vim-graphql'
 
 " ****** Other Plugins ******
 " popes stuff
@@ -14,6 +15,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
 " tidy up long lines of code by moving single lines to multi lines
 Plug 'AndrewRadev/splitjoin.vim'
 " nicer command bar
@@ -40,59 +42,41 @@ endif
 set undodir=~/.vim/undo-dir
 set undofile
 
-" ****** Auto Close Brackets/Tags ******
-" close html tags
-Plug 'alvan/vim-closetag'
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.tsx"
-" close brackets
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
 
 " ****** Linting/Autocompletion ******
-Plug 'dense-analysis/ale'
-let g:ale_linters = {
-			\	'typeScript': ['tsserver'],
-			\	'javascript': ['tsserver'],
-			\ 'php': ['langserver'],
-			\ 'coffeescript': ['coffee'],
-			\ 'scss': ['prettier'],
-			\ 'yaml': ['prettier'],
-			\}
-let g:ale_fixers = {
-			\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-			\ 'css': ['prettier'],
-			\ 'less': ['prettier'],
-			\	'scss': ['prettier'],
-			\ 'yaml': ['prettier'],
-			\ 'php': ['php_cs_fixer'],
-			\ 'coffeescript': ['coffee'],
-			\ 'json': ['eslint'],
-			\ 'javascript': ['prettier'],
-			\ 'typescript': ['prettier'],
-			\ 'typescript.tsx': ['prettier'],
-			\}
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-let g:ale_completion_tsserver_autoimport = 1
-" shortcut gp for Ale Fix
-nnoremap gp :ALEFix <CR>
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mattn/emmet-vim'
+let g:coc_global_extensions = [
+	\'coc-markdownlint',
+	\'coc-highlight',
+	\'coc-tsserver',
+	\'coc-git',
+	\'coc-json',
+	\'coc-python',
+	\'coc-phpls',
+	\'coc-html',
+	\'coc-css',
+	\'coc-docker',
+	\'coc-yaml',
+	\'coc-xml',
+	\'coc-emmet',
+	\'coc-pairs',
+	\'coc-snippets',
+	\'coc-yank',
+	\'coc-prettier'
+	\]
+
 " use tab for autocompletion rather than ctrl+p
-function! InsertTabWrapper()
-	let col = col('.') - 1
-	if !col || getline('.')[col - 1] !~ '\k'
-		return "\<tab>"
-	else
-		return "\<c-p>"
-	endif
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
 
 " ****** Themes ******
 Plug 'dikiaap/minimalist'

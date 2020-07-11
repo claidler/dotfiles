@@ -8,6 +8,7 @@ Plug 'jparise/vim-graphql'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'jparise/vim-graphql'
+Plug 'cakebaker/scss-syntax.vim'
 
 " ****** Other Plugins ******
 " popes stuff
@@ -72,7 +73,8 @@ let g:coc_global_extensions = [
 	\'coc-pairs',
 	\'coc-snippets',
 	\'coc-yank',
-	\'coc-prettier'
+	\'coc-prettier',
+	\'coc-sh'
 	\]
 
 " use tab for autocompletion rather than ctrl+p

@@ -1,8 +1,11 @@
 autodetach on 
 maptimeout 5
-altscreen on
 term xterm
+altscreen on
 term screen-256color
 startup_message off 
-hardstatus alwayslastline 
-hardstatus string '%{gk}[%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}][ %0C:%s%a%{g} ]%{W}'
+# hardstatus alwayslastline 
+# hardstatus string '%{gk}[%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%?%{g}][ %0C:%s%a%{g} ]%{W}'
+rdstatus alwayslastline
+#hardstatus string '%{= kG}%-Lw%{= kW}%50> %n%f* %t%{= kG}%+Lw%< %{= kG}%-=%c:%s%{-}'
+hardstatus string '%{= kG}[%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d-%m %{W}%c %{g}]'

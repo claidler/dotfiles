@@ -1,0 +1,7 @@
+autodetach on 
+maptimeout 5
+term xterm
+term screen-256color
+startup_message off 
+hardstatus alwayslastline 
+hardstatus string '%{gk}[%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}][ %0C:%s%a%{g} ]%{W}'

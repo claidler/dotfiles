@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-" ****** Syntax Highlighters ******
+"****** Syntax Highlighters ******
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'lumiliet/vim-twig'
 Plug 'kchmck/vim-coffee-script'
@@ -10,7 +10,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'jparise/vim-graphql'
 Plug 'cakebaker/scss-syntax.vim'
 
-" ****** Other Plugins ******
+"****** Other Plugins ******
 " popes stuff
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
@@ -30,6 +30,15 @@ Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
 
+" search
+Plug 'junegunn/fzf.vim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mattn/emmet-vim'
+Plug 'dikiaap/minimalist'
+Plug 'altercation/vim-colors-solarized'
+
+call plug#end()
 
 " undotree toggle
 nnoremap <F5> :UndotreeToggle<CR>
@@ -43,19 +52,7 @@ endif
 set undodir=~/.vim/undo-dir
 set undofile
 
-" ****** Auto Close Brackets/Tags ******
-" close brackets
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
 " ****** Linting/Autocompletion ******
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'mattn/emmet-vim'
 let g:coc_global_extensions = [
 	\'coc-markdownlint',
 	\'coc-highlight',
@@ -90,7 +87,6 @@ function! s:check_back_space() abort
 endfunction
 
 " ****** Themes ******
-Plug 'dikiaap/minimalist'
 let g:lightline = {
 		\	'colorscheme': 'wombat',
 		\ 'active': {
@@ -101,8 +97,6 @@ let g:lightline = {
 		\		'fugitive': '%{FugitiveStatusline()}'
 		\ }
 \}
-Plug 'altercation/vim-colors-solarized'
-call plug#end()
 colorscheme minimalist
 
 " ****** Grep ******
@@ -152,13 +146,6 @@ augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   au WinLeave * setlocal nocursorline
-augroup END
-" allow macro to be repeated with capital Q, rather than @@
-nnoremap Q @@
-augroup every
-	autocmd!
-	au InsertEnter * set norelativenumber
-	au InsertLeave * set relativenumber
 augroup END
 
 " ****** Netrw File Explorer ******

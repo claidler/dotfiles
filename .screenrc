@@ -1,5 +1,6 @@
 autodetach on 
 maptimeout 5
+altscreen on
 term xterm
 term screen-256color
 startup_message off 

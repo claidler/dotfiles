@@ -35,8 +35,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
-Plug 'dikiaap/minimalist'
-Plug 'altercation/vim-colors-solarized'
+Plug 'sainnhe/edge'
 
 call plug#end()
 
@@ -88,7 +87,7 @@ endfunction
 
 " ****** Themes ******
 let g:lightline = {
-		\	'colorscheme': 'wombat',
+		\	'colorscheme': 'edge',
 		\ 'active': {
 		\ 'left': [ [ 'mode', 'paste' ],
 		\					[ 'readonly', 'filename', 'modified', 'fugitive' ] ]
@@ -97,7 +96,8 @@ let g:lightline = {
 		\		'fugitive': '%{FugitiveStatusline()}'
 		\ }
 \}
-colorscheme minimalist
+set background=dark
+colorscheme edge
 
 " ****** Grep ******
 " cycle through results quicker

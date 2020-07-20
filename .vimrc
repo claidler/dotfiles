@@ -37,6 +37,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'morhetz/gruvbox'
+Plug 'nanotech/jellybeans.vim'
+Plug 'chriskempson/base16.vim'
 Plug 'dense-analysis/ale'
 
 call plug#end()
@@ -96,7 +98,7 @@ inoremap <s-tab> <c-n>
 
 " ****** Themes ******
 let g:lightline = {
-		\	'colorscheme': 'onehalfdark',
+		\	'colorscheme': 'jellybeans',
 		\ 'active': {
 		\ 'left': [ [ 'mode', 'paste' ],
 		\					[ 'readonly', 'filename', 'modified', 'fugitive' ] ]
@@ -106,7 +108,7 @@ let g:lightline = {
 		\ }
 \}
 set background=dark
-colorscheme onehalfdark
+colorscheme jellybeans
 
 " ****** Grep ******
 " cycle through results quicker

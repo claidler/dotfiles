@@ -31,11 +31,13 @@ Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
 
 " search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
-Plug 'sainnhe/edge'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'morhetz/gruvbox'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -52,42 +54,49 @@ set undodir=~/.vim/undo-dir
 set undofile
 
 " ****** Linting/Autocompletion ******
-let g:coc_global_extensions = [
-	\'coc-markdownlint',
-	\'coc-highlight',
-	\'coc-tsserver',
-	\'coc-git',
-	\'coc-json',
-	\'coc-python',
-	\'coc-phpls',
-	\'coc-html',
-	\'coc-css',
-	\'coc-docker',
-	\'coc-yaml',
-	\'coc-xml',
-	\'coc-emmet',
-	\'coc-pairs',
-	\'coc-snippets',
-	\'coc-yank',
-	\'coc-prettier',
-	\'coc-sh'
-	\]
 
+let g:ale_linters = {
+			\	'typeScript': ['tsserver'],
+			\	'javascript': ['tsserver'],
+			\ 'php': ['langserver'],
+			\ 'coffeescript': ['coffee'],
+			\ 'scss': ['prettier'],
+			\ 'yaml': ['prettier'],
+			\}
+let g:ale_fixers = {
+			\ '*': ['remove_trailing_lines', 'trim_whitespace'],
+			\ 'css': ['prettier'],
+			\ 'less': ['prettier'],
+			\	'scss': ['prettier'],
+			\ 'yaml': ['prettier'],
+			\ 'php': ['php_cs_fixer'],
+			\ 'coffeescript': ['coffee'],
+			\ 'json': ['eslint'],
+			\ 'javascript': ['prettier'],
+			\ 'typescript': ['prettier'],
+			\ 'typescript.tsx': ['prettier'],
+			\}
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
+let g:ale_completion_tsserver_autoimport = 1
+" shortcut gp for Ale Fix
+nnoremap gp :ALEFix <CR>
 " use tab for autocompletion rather than ctrl+p
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+function! InsertTabWrapper()
+	let col = col('.') - 1
+	if !col || getline('.')[col - 1] !~ '\k'
+		return "\<tab>"
+	else
+		return "\<c-p>"
+	endif
 endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-n>
 
 " ****** Themes ******
 let g:lightline = {
-		\	'colorscheme': 'edge',
+		\	'colorscheme': 'onehalfdark',
 		\ 'active': {
 		\ 'left': [ [ 'mode', 'paste' ],
 		\					[ 'readonly', 'filename', 'modified', 'fugitive' ] ]
@@ -97,7 +106,7 @@ let g:lightline = {
 		\ }
 \}
 set background=dark
-colorscheme edge
+colorscheme onehalfdark
 
 " ****** Grep ******
 " cycle through results quicker

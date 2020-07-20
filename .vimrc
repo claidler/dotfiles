@@ -35,10 +35,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'mattn/emmet-vim'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
-Plug 'chriskempson/base16.vim'
 Plug 'dense-analysis/ale'
 
 call plug#end()
@@ -80,7 +77,6 @@ let g:ale_fixers = {
 			\}
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
 let g:ale_completion_tsserver_autoimport = 1
 " shortcut gp for Ale Fix
 nnoremap gp :ALEFix <CR>

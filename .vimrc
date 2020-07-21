@@ -17,12 +17,8 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-" tidy up long lines of code by moving single lines to multi lines
-Plug 'AndrewRadev/splitjoin.vim'
 " nicer command bar
 Plug 'itchyny/lightline.vim'
-" fuzzy finding - not necessary, will set this up without plugin soon
-Plug 'ctrlpvim/ctrlp.vim'
 " allows access to entire undo history in a tree format (not linear)
 Plug 'mbbill/undotree'
 " git plugins
@@ -34,9 +30,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -53,44 +49,38 @@ set undodir=~/.vim/undo-dir
 set undofile
 
 " ****** Linting/Autocompletion ******
+let g:coc_global_extensions = [
+	\'coc-markdownlint',
+	\'coc-highlight',
+	\'coc-tsserver',
+	\'coc-git',
+	\'coc-json',
+	\'coc-python',
+	\'coc-phpls',
+	\'coc-html',
+	\'coc-css',
+	\'coc-docker',
+	\'coc-yaml',
+	\'coc-xml',
+	\'coc-emmet',
+	\'coc-pairs',
+	\'coc-snippets',
+	\'coc-yank',
+	\'coc-prettier',
+	\'coc-sh'
+	\]
 
-let g:ale_linters = {
-			\	'typeScript': ['tsserver'],
-			\	'javascript': ['tsserver'],
-			\ 'php': ['langserver'],
-			\ 'coffeescript': ['coffee'],
-			\ 'scss': ['prettier'],
-			\ 'yaml': ['prettier'],
-			\}
-let g:ale_fixers = {
-			\ '*': ['remove_trailing_lines', 'trim_whitespace'],
-			\ 'css': ['prettier'],
-			\ 'less': ['prettier'],
-			\	'scss': ['prettier'],
-			\ 'yaml': ['prettier'],
-			\ 'php': ['php_cs_fixer'],
-			\ 'coffeescript': ['coffee'],
-			\ 'json': ['eslint'],
-			\ 'javascript': ['prettier'],
-			\ 'typescript': ['prettier'],
-			\ 'typescript.tsx': ['prettier'],
-			\}
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-let g:ale_completion_tsserver_autoimport = 1
-" shortcut gp for Ale Fix
-nnoremap gp :ALEFix <CR>
 " use tab for autocompletion rather than ctrl+p
-function! InsertTabWrapper()
-	let col = col('.') - 1
-	if !col || getline('.')[col - 1] !~ '\k'
-		return "\<tab>"
-	else
-		return "\<c-p>"
-	endif
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
 
 " ****** Themes ******
 let g:lightline = {
@@ -106,10 +96,6 @@ let g:lightline = {
 set background=dark
 colorscheme jellybeans
 
-" ****** Grep ******
-" cycle through results quicker
-nmap <silent> <C-N> :cn<CR>zv
-nmap <silent> <C-P> :cp<CR>zv
 " adjust quick fix window size
 au FileType qf call AdjustWindowHeight(3, 30)
 function! AdjustWindowHeight(minheight, maxheight)
@@ -125,6 +111,7 @@ function! AdjustWindowHeight(minheight, maxheight)
 	 endw
 	 exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+
 " open quick fix window by default
 augroup autoquickfix
 		autocmd!
@@ -148,6 +135,7 @@ set lazyredraw
 " recognise tsx/ts files
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+"
 " show cursorline on selected window only
 augroup CursorLine
   au!

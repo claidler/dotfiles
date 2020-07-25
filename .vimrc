@@ -94,6 +94,7 @@ let g:lightline = {
 		\ }
 \}
 set background=dark
+set t_Co=256
 colorscheme jellybeans
 
 " adjust quick fix window size

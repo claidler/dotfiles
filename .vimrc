@@ -34,6 +34,41 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
 Plug 'nanotech/jellybeans.vim'
 
+" distraction free writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/seoul256.vim'
+
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+	let g:limelight_conceal_ctermfg = 240
+	colorscheme seoul256
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  set scrolloff=5
+	colorscheme jellybeans
+  Limelight!
+  " ...
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 call plug#end()
 
 " undotree toggle
@@ -95,29 +130,7 @@ let g:lightline = {
 \}
 set background=dark
 colorscheme jellybeans
-
-" adjust quick fix window size
-au FileType qf call AdjustWindowHeight(3, 30)
-function! AdjustWindowHeight(minheight, maxheight)
-	 let l = 1
-	 let n_lines = 0
-	 let w_width = winwidth(0)
-	 while l <= line('$')
-			 " number to float for division
-			 let l_len = strlen(getline(l)) + 0.0
-			 let line_width = l_len/w_width
-			 let n_lines += float2nr(ceil(line_width))
-			 let l += 1
-	 endw
-	 exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-
-" open quick fix window by default
-augroup autoquickfix
-		autocmd!
-		autocmd QuickFixCmdPost [^l]* cwindow
-		autocmd QuickFixCmdPost    l* lwindow
-augroup END
+set t_Co=256
 
 " ****** General ******
 set autoindent

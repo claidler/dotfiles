@@ -1,0 +1,78 @@
+!! Colorscheme
+
+! special
+*.foreground: #93a1a1
+*.background: #141c21
+*.cursorColor: #afbfbf
+
+! black
+*.color0: #263640
+*.color8: #4a697d
+
+! red
+*.color1: #d12f2c
+*.color9: #fa3935
+
+! green
+*.color2: #819400
+*.color10: #a4bd00
+
+! yellow
+*.color3: #b08500
+*.color11: #d9a400
+
+! blue
+*.color4: #2587cc
+*.color12: #2ca2f5
+
+! magenta
+*.color5: #696ebf
+*.color13: #8086e8
+
+! cyan
+*.color6: #289c93
+*.color14: #33c5ba
+
+! white
+*.color7: #bfbaac
+*.color15: #fdf6e3
+
+!! xterm Appearance
+xterm.letterSpace: 0
+xterm.lineSpace: 0
+xterm.geometry: 92x24
+xterm.internalBorder: 24
+xterm.cursorBlink: true
+xterm.cursorUnderline: false
+xterm.saveline: 2048
+xterm.scrollBar: false
+xterm.scrollBar_right: false
+xterm.urgentOnBell: true
+xterm.depth: 24
+xterm.iso14755: false
+
+!! Common Keybinds for Navigations
+xterm.keysym.Shift-Up: command:\033]720;1\007
+xterm.keysym.Shift-Down: command:\033]721;1\007
+xterm.keysym.Control-Up: \033[1;5A
+xterm.keysym.Control-Down: \033[1;5B
+xterm.keysym.Control-Right: \033[1;5C
+xterm.keysym.Control-Left: \033[1;5D
+
+!! Copy Paste & Other Extensions
+xterm.perl-ext-common: default,clipboard,url-select,keyboard-select
+xterm.copyCommand: xclip -i -selection clipboard
+xterm.pasteCommand: xclip -o -selection clipboard
+xterm.keysym.M-c: perl:clipboard:copy
+xterm.keysym.M-v: perl:clipboard:paste
+xterm.keysym.M-C-v: perl:clipboard:paste_escaped
+xterm.keysym.M-Escape: perl:keyboard-select:activate
+xterm.keysym.M-s: perl:keyboard-select:search
+xterm.keysym.M-u: perl:url-select:select_next
+xterm.urlLauncher: firefox
+xterm.underlineURLs: true
+xterm.urlButton: 1
+
+!! Fonts
+xterm*font: xft:Dejavu Sans Mono:pixelsize=16:antialias=true:hinting=true
+xterm*boldFont: xft:Dejavu Sans Mono:bold:pixelsize=16:antialias=true:hinting=true

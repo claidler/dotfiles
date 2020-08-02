@@ -17,11 +17,15 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-dadbod'
+
 " nicer command bar
 Plug 'itchyny/lightline.vim'
 " allows access to entire undo history in a tree format (not linear)
 Plug 'mbbill/undotree'
 " git plugins
+Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'airblade/vim-gitgutter'
@@ -32,6 +36,11 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
+
+" themes
+Plug 'jacoborus/tender.vim'
+Plug 'sjl/badwolf'
+Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 
 " distraction free writing
@@ -119,18 +128,18 @@ endfunction
 
 " ****** Themes ******
 let g:lightline = {
-		\	'colorscheme': 'jellybeans',
+		\	'colorscheme': 'gruvbox',
 		\ 'active': {
 		\ 'left': [ [ 'mode', 'paste' ],
-		\					[ 'readonly', 'filename', 'modified', 'fugitive' ] ]
+		\					[ 'readonly', 'filename', 'modified', 'fugitive', 'obsession' ] ]
 		\					},
 		\ 'component': {
-		\		'fugitive': '%{FugitiveStatusline()}'
+		\		'fugitive': '%{FugitiveStatusline()}',
+		\ 	'obsession': '%{ObsessionStatus()}'
 		\ }
 \}
 set background=dark
-set t_Co=256
-colorscheme jellybeans
+colorscheme gruvbox
 set t_Co=256
 
 " ****** General ******
@@ -149,13 +158,19 @@ set lazyredraw
 " recognise tsx/ts files
 au BufNewFile,BufRead *.ts setlocal filetype=typescript
 au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-"
+
 " show cursorline on selected window only
 augroup CursorLine
   au!
   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
   au WinLeave * setlocal nocursorline
 augroup END
+
+" quick windo movements
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " ****** Netrw File Explorer ******
 " open netrw file explorer with ctrl+n
@@ -166,3 +181,5 @@ let g:netrw_keepdir=0
 " ****** Git ******
 " Default to not read-only in vimdiff
 set noro"
+
+set visualbell

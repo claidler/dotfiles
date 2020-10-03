@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 "****** Syntax Highlighters ******
+Plug 'ekalinin/Dockerfile.vim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'lumiliet/vim-twig'
 Plug 'kchmck/vim-coffee-script'
@@ -48,6 +49,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/seoul256.vim'
 
+call plug#end()
+
 function! s:goyo_enter()
   if executable('tmux') && strlen($TMUX)
     silent !tmux set status off
@@ -77,8 +80,6 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-call plug#end()
 
 " undotree toggle
 nnoremap <F5> :UndotreeToggle<CR>
@@ -128,7 +129,7 @@ endfunction
 
 " ****** Themes ******
 let g:lightline = {
-		\	'colorscheme': 'gruvbox',
+		\	'colorscheme': 'jellybeans',
 		\ 'active': {
 		\ 'left': [ [ 'mode', 'paste' ],
 		\					[ 'readonly', 'filename', 'modified', 'fugitive', 'obsession' ] ]
@@ -139,7 +140,7 @@ let g:lightline = {
 		\ }
 \}
 set background=dark
-colorscheme gruvbox
+colorscheme jellybeans
 set t_Co=256
 
 " ****** General ******
